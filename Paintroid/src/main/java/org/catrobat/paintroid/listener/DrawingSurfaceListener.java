@@ -70,6 +70,7 @@ public class DrawingSurfaceListener implements OnTouchListener {
 				.getCanvasPointFromSurfacePoint(new PointF(event.getX(), event
 						.getY()));
 
+		PaintroidApplication.isImageManipulated = true;
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			PaintroidApplication.currentTool.handleDown(touchPoint);

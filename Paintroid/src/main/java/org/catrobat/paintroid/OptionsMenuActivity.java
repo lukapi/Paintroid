@@ -259,6 +259,7 @@ public abstract class OptionsMenuActivity extends SherlockFragmentActivity {
 				PaintroidApplication.isPlainImage = false;
 				PaintroidApplication.isSaved = false;
 				PaintroidApplication.savedPictureUri = null;
+				PaintroidApplication.isImageManipulated = false;
 				if (PaintroidApplication.menu.findItem(R.id.menu_item_save_image) != null) {
 					PaintroidApplication.menu.findItem(R.id.menu_item_save_image).setVisible(false);
 				}
@@ -269,6 +270,7 @@ public abstract class OptionsMenuActivity extends SherlockFragmentActivity {
 				PaintroidApplication.isPlainImage = false;
 				PaintroidApplication.isSaved = false;
 				PaintroidApplication.savedPictureUri = null;
+				PaintroidApplication.isImageManipulated = false;
 				if (PaintroidApplication.menu.findItem(R.id.menu_item_save_image) != null) {
 					PaintroidApplication.menu.findItem(R.id.menu_item_save_image).setVisible(true);
 				}
@@ -350,6 +352,7 @@ public abstract class OptionsMenuActivity extends SherlockFragmentActivity {
 		}
 
 		PaintroidApplication.isSaved = true;
+		PaintroidApplication.isImageManipulated = false;
 	}
 
 	protected void loadBitmapFromUri(Uri uri) {

@@ -188,9 +188,8 @@ public class MainActivity extends OptionsMenuActivity {
     public void onStop(){
 
         if(!PaintroidApplication.isSaved &&
-            !PaintroidApplication.isPlainImage &&
-                PaintroidApplication.savedPictureUri.toString().length() <= 0){
-            saveFile();
+                PaintroidApplication.isImageManipulated){
+                saveFile();
         }
 
         super.onStop();
