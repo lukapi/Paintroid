@@ -184,6 +184,19 @@ public class MainActivity extends OptionsMenuActivity {
 
 	}
 
+    @Override
+    public void onStop(){
+
+        if(!PaintroidApplication.isSaved &&
+            !PaintroidApplication.isPlainImage &&
+                PaintroidApplication.savedPictureUri.toString().length() <= 0){
+            saveFile();
+        }
+
+        super.onStop();
+
+    }
+
 	@Override
 	protected void onResume() {
 		super.onResume();
