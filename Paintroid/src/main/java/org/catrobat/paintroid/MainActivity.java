@@ -41,7 +41,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceView;
+import android.view.Surface;
 import android.view.View;
+import android.view.Display;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
@@ -68,6 +70,7 @@ import org.catrobat.paintroid.ui.BottomBar;
 import org.catrobat.paintroid.ui.DrawingSurface;
 import org.catrobat.paintroid.ui.Perspective;
 import org.catrobat.paintroid.ui.TopBar;
+
 
 import java.io.File;
 
@@ -192,7 +195,18 @@ public class MainActivity extends NavigationDrawerMenuActivity implements  Navig
 		LayersDialog.init(this, PaintroidApplication.drawingSurface.getBitmapCopy());
 		initCommandManager();
 		initNavigationDrawer();
+
+
+        Display display = ((WindowManager) getSystemService(WINDOW_SERVICE))
+                .getDefaultDisplay();
+        int orientation = display.getRotation();
+
+        if (orientation == Surface.ROTATION_90
+                || orientation == Surface.ROTATION_270) {
+            landscapeMode();
+        }
 	}
+
 
 	private void initCommandManager() {
 		PaintroidApplication.commandManager = new CommandManagerImplementation();
@@ -553,6 +567,11 @@ public class MainActivity extends NavigationDrawerMenuActivity implements  Navig
 		if(!PaintroidApplication.openedFromCatroid)
 			mNavigationView.getMenu().removeItem(R.id.nav_back_to_pocket_code);
 	}
+
+    private void landscapeMode(){
+        // TODO: add logic for landscape mode here
+        
+    }
 
 
 
