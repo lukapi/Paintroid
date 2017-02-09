@@ -52,6 +52,7 @@ public class PaintroidApplication extends Application {
 	public static boolean saveCopy = false;
 	public static boolean scaleImage = true;
 	public static boolean isRTL = false;
+	public static String autosaveFilename = "autosave.tmp";
 
 	@Override
 	public void onCreate() {

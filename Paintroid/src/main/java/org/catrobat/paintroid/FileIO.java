@@ -45,6 +45,8 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import static org.catrobat.paintroid.PaintroidApplication.autosaveFilename;
+
 @SuppressLint("NewApi")
 public abstract class FileIO {
 	private static File PAINTROID_MEDIA_FILE = null;
@@ -120,6 +122,42 @@ public abstract class FileIO {
 
 		}
 		return true;
+	}
+
+	public static boolean autoSave(Bitmap bitmap) {
+		final int QUALITY = 100;
+		final Bitmap.CompressFormat FORMAT = Bitmap.CompressFormat.PNG;
+		OutputStream outputStream = null;
+
+		if(initialisePaintroidMediaDirectory()){
+			File file = new File(PAINTROID_MEDIA_FILE, autosaveFilename);
+
+			try {
+				outputStream = new FileOutputStream(file);
+
+				bitmap.compress(FORMAT, QUALITY, outputStream);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		} else return false;
+		return true;
+	}
+
+	public static void autoSaveDelete(){
+		if(initialisePaintroidMediaDirectory()) {
+			File file = new File(PAINTROID_MEDIA_FILE, autosaveFilename);
+
+			file.delete();
+		}
+	}
+
+	public static boolean checkForAutosave() {
+		if(initialisePaintroidMediaDirectory()) {
+			File file = new File(PAINTROID_MEDIA_FILE, autosaveFilename);
+
+			return file.exists();
+		}
+		return false;
 	}
 
 	public static String getDefaultFileName() {

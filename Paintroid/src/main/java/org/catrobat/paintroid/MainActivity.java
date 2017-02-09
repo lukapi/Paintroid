@@ -30,6 +30,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Cap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -66,6 +67,10 @@ import org.catrobat.paintroid.ui.Perspective;
 import org.catrobat.paintroid.ui.TopBar;
 
 import java.io.File;
+
+import static org.catrobat.paintroid.FileIO.autoSave;
+import static org.catrobat.paintroid.FileIO.autoSaveDelete;
+import static org.catrobat.paintroid.FileIO.checkForAutosave;
 
 public class MainActivity extends NavigationDrawerMenuActivity implements  NavigationView.OnNavigationItemSelectedListener  {
 
@@ -198,9 +203,22 @@ public class MainActivity extends NavigationDrawerMenuActivity implements  Navig
 	}
 
 	@Override
+	protected void onPause() {
+		super.onPause();
+
+		autoSave autoSaveTask = new autoSave();
+		autoSaveTask.execute();
+	}
+
+	@Override
 	protected void onResume() {
 		super.onResume();
 		checkIfLoadBitmapFailed();
+		if(PaintroidApplication.isPlainImage && !PaintroidApplication.commandManager.checkIfDrawn()) {
+			if(FileIO.checkForAutosave())
+				autoSaveDelete();
+		}
+		autoSaveDelete();
 	}
 
 	public void checkIfLoadBitmapFailed() {
@@ -561,4 +579,12 @@ public class MainActivity extends NavigationDrawerMenuActivity implements  Navig
 			mNavigationView.getMenu().findItem(R.id.nav_exit_fullscreen_mode).setVisible(false);
 	}
 
+
+	private class autoSave extends AsyncTask<Void, Void, Void> {
+		@Override
+		protected Void doInBackground(Void... params) {
+			autoSave(LayersDialog.getInstance().getBitmapOfAllLayersToSave());
+			return null;
+		}
+	}
 }
