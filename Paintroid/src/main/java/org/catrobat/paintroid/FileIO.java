@@ -49,7 +49,7 @@ import static org.catrobat.paintroid.PaintroidApplication.autosaveFilename;
 
 @SuppressLint("NewApi")
 public abstract class FileIO {
-	private static File PAINTROID_MEDIA_FILE = null;
+	public static File PAINTROID_MEDIA_FILE = null;
 	private static final int BUFFER_SIZE = 1024;
 	private static final String DEFAULT_FILENAME_TIME_FORMAT = "yyyy_MM_dd_hhmmss";
 	private static final String ENDING = ".png";
@@ -204,7 +204,7 @@ public abstract class FileIO {
 		return path;
 	}
 
-	private static boolean initialisePaintroidMediaDirectory() {
+	public static boolean initialisePaintroidMediaDirectory() {
 		if (Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED)) {
 			PAINTROID_MEDIA_FILE = new File(

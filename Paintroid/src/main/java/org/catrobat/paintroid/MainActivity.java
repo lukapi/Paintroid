@@ -215,8 +215,11 @@ public class MainActivity extends NavigationDrawerMenuActivity implements  Navig
 		super.onResume();
 		checkIfLoadBitmapFailed();
 		if(PaintroidApplication.isPlainImage && !PaintroidApplication.commandManager.checkIfDrawn()) {
-			if(FileIO.checkForAutosave())
-				autoSaveDelete();
+			if(FileIO.checkForAutosave()) {
+				if (FileIO.initialisePaintroidMediaDirectory()) {
+					//loadBitmapFromUri(Uri.fromFile(new File(FileIO.PAINTROID_MEDIA_FILE.getPath() + "/" + PaintroidApplication.autosaveFilename)));
+				}
+			}
 		}
 		autoSaveDelete();
 	}
