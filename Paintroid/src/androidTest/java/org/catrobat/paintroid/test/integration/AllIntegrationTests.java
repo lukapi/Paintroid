@@ -21,7 +21,7 @@ public class AllIntegrationTests extends TestSuite {
                 //ActivityOpenedFromPocketCodeNewImageTest.class,
                 //ActivityOpenedFromPocketCodeTest.class,
                 BitmapIntegrationTest.class,
-                //LandscapeTest.class,
+                LandscapeTest.class,
                 //LayerIntegrationTest.class,
                 MainActivityIntegrationTest.class,
                 MenuFileActivityIntegrationTest.class,
@@ -58,11 +58,6 @@ public class AllIntegrationTests extends TestSuite {
         suite.addTest(new TestSuite(dialogTestClasses));
         suite.addTest(new TestSuite(integrationTestClasses));
         suite.addTest(new TestSuite(toolTestClasses));
-
-
-
-
-
 
 
         // How to call a single test
