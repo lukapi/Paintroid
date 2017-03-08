@@ -54,17 +54,21 @@ public class AllIntegrationTests extends TestSuite {
 
         TestSuite suite = new TestSuite( );
 
-        suite.addTest(new TestSuite(toolTestClasses2));
-        suite.addTest(new TestSuite(dialogTestClasses));
-        suite.addTest(new TestSuite(integrationTestClasses));
-        suite.addTest(new TestSuite(toolTestClasses));
+       // suite.addTest(new TestSuite(toolTestClasses2));
+       // suite.addTest(new TestSuite(dialogTestClasses));
+       // suite.addTest(new TestSuite(integrationTestClasses));
+       // suite.addTest(new TestSuite(toolTestClasses));
+        suite.addTest(new TestSuite(org.catrobat.paintroid.test.integration.BitmapIntegrationTest.class));
+        suite.addTest(new TestSuite(org.catrobat.paintroid.test.integration.MenuFileActivityIntegrationTest.class));
+        suite.addTest(new TestSuite(org.catrobat.paintroid.test.integration.ToolOnBackPressedTests.class));
+
 
 
 
 
 
         // How to call a single test
-        //suite.addTest(createTest(org.catrobat.paintroid.test.integration.dialog.BrushPickerIntegrationTest.class, "testBrushPickerDialogKeepStrokeOnToolChange"));
+        //suite.addTest(createTest(org.catrobat.paintroid.test.integration.BitmapIntegrationTest.class, "testCenterBitmapSimulateLoad"));
 
         return suite;
 
