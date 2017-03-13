@@ -45,9 +45,11 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import static org.catrobat.paintroid.PaintroidApplication.autosaveFilename;
+
 @SuppressLint("NewApi")
 public abstract class FileIO {
-	private static File PAINTROID_MEDIA_FILE = null;
+	public static File PAINTROID_MEDIA_FILE = null;
 	private static final int BUFFER_SIZE = 1024;
 	private static final String DEFAULT_FILENAME_TIME_FORMAT = "yyyy_MM_dd_hhmmss";
 	private static final String ENDING = ".png";
@@ -122,6 +124,42 @@ public abstract class FileIO {
 		return true;
 	}
 
+	public static boolean autoSave(Bitmap bitmap) {
+		final int QUALITY = 100;
+		final Bitmap.CompressFormat FORMAT = Bitmap.CompressFormat.PNG;
+		OutputStream outputStream = null;
+
+		if(initialisePaintroidMediaDirectory()){
+			File file = new File(PAINTROID_MEDIA_FILE, autosaveFilename);
+
+			try {
+				outputStream = new FileOutputStream(file);
+
+				bitmap.compress(FORMAT, QUALITY, outputStream);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		} else return false;
+		return true;
+	}
+
+	public static void autoSaveDelete(){
+		if(initialisePaintroidMediaDirectory()) {
+			File file = new File(PAINTROID_MEDIA_FILE, autosaveFilename);
+
+			file.delete();
+		}
+	}
+
+	public static boolean checkForAutosave() {
+		if(initialisePaintroidMediaDirectory()) {
+			File file = new File(PAINTROID_MEDIA_FILE, autosaveFilename);
+
+			return file.exists();
+		}
+		return false;
+	}
+
 	public static String getDefaultFileName() {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
 				DEFAULT_FILENAME_TIME_FORMAT);
@@ -166,7 +204,7 @@ public abstract class FileIO {
 		return path;
 	}
 
-	private static boolean initialisePaintroidMediaDirectory() {
+	public static boolean initialisePaintroidMediaDirectory() {
 		if (Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED)) {
 			PAINTROID_MEDIA_FILE = new File(

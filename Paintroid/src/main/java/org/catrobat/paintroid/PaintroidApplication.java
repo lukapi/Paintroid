@@ -55,7 +55,7 @@ public class PaintroidApplication extends Application {
 	public static int orientation;
 	public static boolean isRTL = false;
 	public static int colorPickerInitialColor = Color.BLACK;
-
+	public static String autosaveFilename = "autosave.tmp";
 
 	@Override
 	public void onCreate() {
